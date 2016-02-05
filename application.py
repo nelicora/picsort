@@ -611,13 +611,13 @@ class ExportDialog(QtWidgets.QDialog):
         
         self.actionComboBox = QtWidgets.QComboBox()
         optionsLayout.addRow("Select Action", self.actionComboBox)
-        self.actionComboBox.addItems(["Copy", "Copy and Resize", "Resize"])
+        self.actionComboBox.addItems(["Copy", "Copy and Resize"])
         
         sizeWidget = QtWidgets.QWidget()
         sizeLayout = QtWidgets.QHBoxLayout(sizeWidget)
         sizeLayout.addWidget(QtWidgets.QLabel("Size"))
         self.sizeInput = QtWidgets.QLineEdit()
-        sizeValidator = QtWidgets.QIntValidator(1, 100000)
+        sizeValidator = QtGui.QIntValidator(1, 100000)
         self.sizeInput.setValidator(sizeValidator)
         sizeLayout.addWidget(self.sizeInput)
         sizeLayout.addWidget(QtWidgets.QLabel("px  (shortest side)"))

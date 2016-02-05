@@ -46,9 +46,15 @@ class MainWindow(QtWidgets.QWidget):
         
         self.imageView = ImageView()
         groupView = GroupView(self.imageView)
-        splitter.addWidget(groupView)
-        
-        
+
+        leftSideWidget = QtWidgets.QWidget()
+        leftSideLayout = QtWidgets.QVBoxLayout(leftSideWidget)
+        leftSideLayout.setContentsMargins(0,0,0,0)
+        leftSideLayout.addWidget(groupView)
+        leftSideLayout.addWidget(QtWidgets.QLabel("Hans"),1)
+
+
+        splitter.addWidget(leftSideWidget)
         splitter.addWidget(self.imageView)
         splitter.setSizes((100,500))
         
@@ -212,8 +218,7 @@ class GroupView(QtWidgets.QWidget):
         self.groupListWidget.selectionModel().selectionChanged.connect(self._handleSelectionChanged)
         self.removeButton.clicked.connect(self._handleRemoveButton)
         
-        
-        layout.addStretch()
+
         
         for group in groupManager.groups:
             self._handleGroupAdded(group)

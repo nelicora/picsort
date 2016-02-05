@@ -552,9 +552,9 @@ class ImageView(QtWidgets.QScrollArea):
     def wheelEvent(self, event):
         
         if self.zoomMode != ZOOM_100:
-            if event.angleDelta() > 0:
+            if event.angleDelta().y() > 0:
                 self.zoomIn()
-            elif event.angleDelta() < 0:
+            elif event.angleDelta().y() < 0:
                 self.zoomOut()            
         else: super().wheelEvent(event)
     

@@ -53,11 +53,11 @@ class MainWindow(QtWidgets.QWidget):
 
         leftSideLayout.addWidget(groupView)
 
-        infoBoxLabel = QtWidgets.QLabel()
-        infoBoxLabel.setText(self.imageView.getImageInfo())
-        infoBoxLabel.setAlignment(Qt.AlignTop)
+        infoBox = InfoBox(self.imageView)
+        #infoBox.setText(self.imageView.getImageInfo())
+        infoBox.setAlignment(Qt.AlignTop)
 
-        leftSideLayout.addWidget(infoBoxLabel,1)
+        leftSideLayout.addWidget(infoBox,1)
 
         splitter.addWidget(leftSideWidget)
         splitter.addWidget(self.imageView)
@@ -618,6 +618,20 @@ class ImageView(QtWidgets.QScrollArea):
         info += "\nOwner: "
         info += self.images[self.current].getExifTag("Artist")
         return info
+
+class InfoBox(QtWidgets.QLabel):
+    def __init__(self, imageView):
+        super().__init__()
+        self.imageView = imageView
+        self.setText(self.imageView.getImageInfo())
+
+        self.imageView.currentChanged.connect(self._handleCurrentChanged)
+
+    def _handleCurrentChanged(self):
+        self.setText(self.imageView.getImageInfo())
+
+
+
 
 
 class ExportDialog(QtWidgets.QDialog):

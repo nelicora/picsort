@@ -456,7 +456,7 @@ class ImageView(QtWidgets.QScrollArea):
         self.setAlignment(Qt.AlignVCenter|Qt.AlignHCenter)       
         
         self.directory = 0
-        #self.setDirectory("/home/cornelia/Bilder/TestPicsort")
+
         try:
             if "directory" in storage:
                 self.setDirectory(storage["directory"])
@@ -605,18 +605,20 @@ class ImageView(QtWidgets.QScrollArea):
         return self.images[self.current] if self.current is not None else None
 
     def getImageInfo(self):
-        info = "EXIF Information: \n \nPixel Size: "
-        info += self.getImageSizeAsString()
-        info += "\nDate: "
-        info += self.images[self.current].getExifTag("DateTimeOriginal")
-        info += "\nFStop: "
-        info += self.images[self.current].getExifTag("FNumber")
-        info += "\nExposure: "
-        info += self.images[self.current].getExifTag("ExposureTime")
-        info += "\nISO: "
-        info += self.images[self.current].getExifTag("ISOSpeedRatings")
-        info += "\nOwner: "
-        info += self.images[self.current].getExifTag("Artist")
+        lines = []
+        lines.append("EXIF Information: \n \nPixel Size: ")
+        lines.append(self.getImageSizeAsString())
+        lines.append("Date: ")
+        lines.append(self.images[self.current].getExifTag("DateTimeOriginal"))
+        lines.append("FStop: ")
+        lines.append(self.images[self.current].getExifTag("FNumber"))
+        lines.append("Exposure: ")
+        lines.append(self.images[self.current].getExifTag("ExposureTime"))
+        lines.append("ISO: ")
+        lines.append(self.images[self.current].getExifTag("ISOSpeedRatings"))
+        lines.append("Owner: ")
+        lines.append(self.images[self.current].getExifTag("Artist"))
+        info = "\n".join(lines)
         return info
 
 class InfoBox(QtWidgets.QLabel):

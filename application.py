@@ -606,18 +606,13 @@ class ImageView(QtWidgets.QScrollArea):
 
     def getImageInfo(self):
         lines = []
-        lines.append("EXIF Information: \n \nPixel Size: ")
-        lines.append(self.getImageSizeAsString())
-        lines.append("Date: ")
-        lines.append(self.images[self.current].getExifTag("DateTimeOriginal"))
-        lines.append("FStop: ")
-        lines.append(self.images[self.current].getExifTag("FNumber"))
-        lines.append("Exposure: ")
-        lines.append(self.images[self.current].getExifTag("ExposureTime"))
-        lines.append("ISO: ")
-        lines.append(self.images[self.current].getExifTag("ISOSpeedRatings"))
-        lines.append("Owner: ")
-        lines.append(self.images[self.current].getExifTag("Artist"))
+        lines.append("EXIF Information: \n")
+        lines.append("Pixel Size: " + self.getImageSizeAsString())
+        lines.append("Date: " + self.images[self.current].getExifTag("DateTimeOriginal"))
+        lines.append("FStop: " + self.images[self.current].getExifTag("FNumber"))
+        lines.append("Exposure: " + self.images[self.current].getExifTag("ExposureTime"))
+        lines.append("ISO: " + self.images[self.current].getExifTag("ISOSpeedRatings"))
+        lines.append("Owner: " + self.images[self.current].getExifTag("Artist"))
         info = "\n".join(lines)
         return info
 

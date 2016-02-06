@@ -623,12 +623,15 @@ class InfoBox(QtWidgets.QLabel):
     def __init__(self, imageView):
         super().__init__()
         self.imageView = imageView
-        self.setText(self.imageView.getImageInfo())
+
+        if self.imageView.pixmap is not None:
+            self.setText(self.imageView.getImageInfo())
 
         self.imageView.currentChanged.connect(self._handleCurrentChanged)
 
     def _handleCurrentChanged(self):
-        self.setText(self.imageView.getImageInfo())
+        if self.imageView.pixmap is not None:
+            self.setText(self.imageView.getImageInfo())
 
 
 

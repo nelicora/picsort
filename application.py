@@ -473,10 +473,7 @@ class ImageView(QtWidgets.QScrollArea):
             return "{}x{}".format(self.getImageSize().width(), self.getImageSize().height())
         else: return None
 
-    def getImageInfo(self):
 
-        return self.getImageSizeAsString()
-    
     def setCurrent(self, number):
         if number is not None:
             self.current = number % len(self.images)
@@ -606,6 +603,14 @@ class ImageView(QtWidgets.QScrollArea):
     
     def getCurrentImage(self):
         return self.images[self.current] if self.current is not None else None
+
+    def getImageInfo(self):
+        info = "EXIF Information: \n \nPixel Size: "
+        info += self.getImageSizeAsString()
+        info += "\nDate: "
+        info += self.images[self.current].getExifTag("DateTimeOriginal")
+        return info
+
 
 class ExportDialog(QtWidgets.QDialog):
     def __init__(self, parent):

@@ -51,8 +51,9 @@ class MainWindow(QtWidgets.QWidget):
         leftSideLayout = QtWidgets.QVBoxLayout(leftSideWidget)
         leftSideLayout.setContentsMargins(0,0,0,0)
         leftSideLayout.addWidget(groupView)
-        leftSideLayout.addWidget(QtWidgets.QLabel("Hans"),1)
-
+        infoBoxLabel = QtWidgets.QLabel("Hans")
+        leftSideLayout.addWidget(infoBoxLabel,1)
+        infoBoxLabel.setAlignment(Qt.AlignTop)
 
         splitter.addWidget(leftSideWidget)
         splitter.addWidget(self.imageView)

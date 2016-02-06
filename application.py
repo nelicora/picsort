@@ -609,6 +609,14 @@ class ImageView(QtWidgets.QScrollArea):
         info += self.getImageSizeAsString()
         info += "\nDate: "
         info += self.images[self.current].getExifTag("DateTimeOriginal")
+        info += "\nFStop: "
+        info += self.images[self.current].getExifTag("FNumber")
+        info += "\nExposure: "
+        info += self.images[self.current].getExifTag("ExposureTime")
+        info += "\nISO: "
+        info += self.images[self.current].getExifTag("ISOSpeedRatings")
+        info += "\nOwner: "
+        info += self.images[self.current].getExifTag("Artist")
         return info
 
 

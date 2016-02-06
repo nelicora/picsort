@@ -37,7 +37,7 @@ class MainWindow(QtWidgets.QWidget):
         layout.addWidget(menuBar)
         
         
-        # Big part with group/selection manager and image viewer
+        # Big part with group/selection manager, info box and image viewer
         topLayout = QtWidgets.QHBoxLayout()
         layout.addLayout(topLayout,1)
         
@@ -50,10 +50,14 @@ class MainWindow(QtWidgets.QWidget):
         leftSideWidget = QtWidgets.QWidget()
         leftSideLayout = QtWidgets.QVBoxLayout(leftSideWidget)
         leftSideLayout.setContentsMargins(0,0,0,0)
+
         leftSideLayout.addWidget(groupView)
-        infoBoxLabel = QtWidgets.QLabel("Hans")
-        leftSideLayout.addWidget(infoBoxLabel,1)
+
+        infoBoxLabel = QtWidgets.QLabel()
+        infoBoxLabel.setText(self.imageView.getImageInfo())
         infoBoxLabel.setAlignment(Qt.AlignTop)
+
+        leftSideLayout.addWidget(infoBoxLabel,1)
 
         splitter.addWidget(leftSideWidget)
         splitter.addWidget(self.imageView)
@@ -468,6 +472,10 @@ class ImageView(QtWidgets.QScrollArea):
         if self.pixmap is not None:
             return "{}x{}".format(self.getImageSize().width(), self.getImageSize().height())
         else: return None
+
+    def getImageInfo(self):
+
+        return self.getImageSizeAsString()
     
     def setCurrent(self, number):
         if number is not None:

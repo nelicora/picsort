@@ -604,17 +604,7 @@ class ImageView(QtWidgets.QScrollArea):
     def getCurrentImage(self):
         return self.images[self.current] if self.current is not None else None
 
-    def getImageInfo(self):
-        lines = []
-        lines.append("EXIF Information: \n")
-        lines.append("Pixel Size: " + self.getImageSizeAsString())
-        lines.append("Date: " + self.images[self.current].getExifTag("DateTimeOriginal"))
-        lines.append("FStop: " + self.images[self.current].getExifTag("FNumber"))
-        lines.append("Exposure: " + self.images[self.current].getExifTag("ExposureTime"))
-        lines.append("ISO: " + self.images[self.current].getExifTag("ISOSpeedRatings"))
-        lines.append("Owner: " + self.images[self.current].getExifTag("Artist"))
-        info = "\n".join(lines)
-        return info
+
 
 class InfoBox(QtWidgets.QLabel):
     def __init__(self, imageView):
@@ -622,13 +612,45 @@ class InfoBox(QtWidgets.QLabel):
         self.imageView = imageView
 
         if self.imageView.pixmap is not None:
-            self.setText(self.imageView.getImageInfo())
+            image = self.imageView.getCurrentImage()
+            self.setText(self.drawBox(image))
 
         self.imageView.currentChanged.connect(self._handleCurrentChanged)
 
     def _handleCurrentChanged(self):
         if self.imageView.pixmap is not None:
-            self.setText(self.imageView.getImageInfo())
+            image = self.imageView.getCurrentImage()
+            self.setText(self.drawBox(image))
+
+
+    def drawBox(self, image):
+        size = self.imageView.getImageSizeAsString()
+        if size is None:
+            size = "Not found"
+        date = image.getExifTag("DateTimeOriginal")
+        if date is None:
+            date = "Not found"
+        fstop = image.getExifTag("FNumber")
+        if fstop is None:
+            fstop = "Not found"
+        exp = image.getExifTag("ExposureTime")
+        if exp is None:
+            exp = "Not found"
+        iso = image.getExifTag("ISOSpeedRatings")
+        if iso is None:
+            iso = "Not found"
+        owner = image.getExifTag("Artist")
+        if owner is None:
+            owner = "Not found"
+
+        info = "<b>EXIF Information:</b><br /><table><tr><td>Size: </td><td> {} </td></tr>" \
+               "<tr><td>Date: </td><td> {} </td></tr>" \
+               "<tr><td>F-Stop: </td><td> {} </td></tr>" \
+               "<tr><td>Exposure: </td><td> {} </td></tr>" \
+               "<tr><td>ISO: </td><td> {} </td></tr>" \
+               "<tr><td>Owner: </td><td> {} </td></tr>" \
+               "</table>".format(size, date, fstop, exp, iso, owner)
+        return info
 
 
 

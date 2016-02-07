@@ -54,7 +54,6 @@ class MainWindow(QtWidgets.QWidget):
         leftSideLayout.addWidget(groupView)
 
         infoBox = InfoBox(self.imageView)
-        #infoBox.setText(self.imageView.getImageInfo())
         infoBox.setAlignment(Qt.AlignTop)
 
         leftSideLayout.addWidget(infoBox,1)
@@ -366,12 +365,14 @@ class ButtonBar(QtWidgets.QWidget):
         layout.addStretch()
         
         
-        
-        previousButton = QtWidgets.QPushButton("Previous")
+
+        previousButton = QtWidgets.QPushButton()
+        previousButton.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowLeft))
         layout.addWidget(previousButton)
         previousButton.clicked.connect(imageView.previous)
        
-        nextButton = QtWidgets.QPushButton("Next")
+        nextButton = QtWidgets.QPushButton()
+        nextButton.setIcon(self.style().standardIcon(QtWidgets.QStyle.SP_ArrowRight))
         layout.addWidget(nextButton)
         nextButton.clicked.connect(imageView.next)
         

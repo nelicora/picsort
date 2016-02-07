@@ -2,7 +2,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import Qt
 import os
 import functools
-from wand import image as wandimage
+try:
+    from wand import image as wandimage
+except ImportError:
+    print("You are missing your (image)magick wand ... please install wand for python.")
 import sys, os, os.path, json, shutil
 
 
@@ -351,7 +354,7 @@ class ButtonBar(QtWidgets.QWidget):
         
         self.imageView = imageView
         layout = QtWidgets.QHBoxLayout(self)
-        layout.setContentsMargins(0,0,0,0)
+        layout.setContentsMargins(2,0,2,3)
         
         imageView.currentChanged.connect(self._handleCurrentChanged)
         imageView.zoomModeChanged.connect(self._handleZoomModeChanged)
